@@ -1,0 +1,21 @@
+<?xml ?>
+<fighter name="hanako" shortname="Hanako" longname="Hanako" health_max="9900" rage_max="9000">
+<move name="stand"></move>
+<!-- allowed inputs are:
+    down up fore back downfore downback upfore upback kick1 kick2 kick3 punch1 punch2 punch3 block
+-->
+<move name="walk"      input="fore"></move>
+<move name="dash"      input="fore fore"></move>
+<move name="backup"    input="back"></move>
+<move name="backstep"  input="back back"></move>
+<move name="jump"  	   input="up" 	state="aid"></move>
+<move name="crouch"    input="down" state="crouch"></move>
+<move name="land"  	   state="stand"></move>
+<move name="softkick"  input="kick1" damage="200"></move>
+<move name="hardkick"  input="kick2" damage="400"></move>
+<move name="softpunch" input="punch1" damage="200"></move>
+<move name="hardpunch" input="punch2" damage="400"></move>
+<move name="brokenheart" input="back back downback down punch1 kick2" damage="5000" rage_cost="9000">
+</move>
+
+</fighter>
