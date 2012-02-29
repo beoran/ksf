@@ -41,6 +41,9 @@ public class Frame extends Named {
 		 // load again, transparantly (what a waste of memory! :p) 
 		_image 	= new Image(file.getPath(), _trans);
 		_fimage	= _image.getFlippedCopy(true, false);
+		_delay  = 100;
 		
-	}
+	}	
+	/** Height of this frame. */
+	public int height() { return _image.getHeight(); }
 }

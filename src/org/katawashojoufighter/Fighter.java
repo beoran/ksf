@@ -3,6 +3,7 @@ package org.katawashojoufighter;
 import java.io.File;
 import java.util.HashMap;
 
+
 /**
  * A Fighter is any of the characters that can be played or can be fought against. 
  * A Fighter has different "moves" and different parameters such as maximum health, etc.    
@@ -28,6 +29,7 @@ public class Fighter extends Thing {
 	int _charm;
 	// currently active move if any. 
 	Move _now; 
+	char _command; // Currently active command.
 	
 	HashMap<String, Move> _moves;
 	
@@ -36,6 +38,7 @@ public class Fighter extends Thing {
 	 * */	
 	Fighter(String name) {
 		super(name);
+		_command	= Command.NONE;
 		_health 	= _health_max = DEFAULT_HEALTH;
 		_rage_max 	= DEFAULT_RAGE;
 		_strength   = DEFAULT_STRENGTH;
@@ -84,7 +87,60 @@ public class Fighter extends Thing {
 		} 
 		// _now.draw(0, 0);
 		_now.draw(x() - camera.x(), y() - camera.y());
+	}
+	
+	@Override
+	public void update(long ms) {
+		super.update(ms);
+		if(_now == null) { 
+			// Main.printf("Cannot draw %s\n", name()); 
+			return; 
+		} 
+		// _now.draw(0, 0);
+		_now.update(ms);
 	}	
+	
+	/* Tries to set the move to the named move. If the move is not found, the current move is maintained. */
+	public boolean trymove(String name) {
+		Move move = getMove(name);
+		if(move == null) return false;
+		_now      = move;
+		return true;
+	}
+	
+	public final static int WALK_SPEED = 200;
+	
+	/* Accept a basic command, and changes the move and direction, etc of the fighter accordingly. */
+	public void command(char command) {
+		if (command == _command) return; // ignore same command as last one
+		_command = command;
+		// XXX: add command buffer and special actions around here somewhere.
+		// motion command
+		if (command == Command.IDLE) { // back to idle command
+			trymove("idle"); stop(); 
+		} else if(Command.isMotion(_command)) 	  {	
+			if(_command == Command.RIGHT)		  {
+				trymove("walk"); setspeed(WALK_SPEED, 0);  
+			} else if (_command == Command.LEFT)  {
+				trymove("walk"); setspeed(-WALK_SPEED, 0);
+			} else if (_command == Command.DOWN)  {
+				trymove("knee"); stop();
+			} else if (_command == Command.UP)  {
+				trymove("jump");
+				// ensure the feet go off the floor.
+				y(y() - 50);  air(true); setaccel(10, -10000);
+			}
+		} else { // action command
+			if (Command.is(_command, Command.HIGHWEAK)) {
+				trymove("punchweak");
+			} else if (Command.is(_command, Command.LOWWEAK)) {
+				trymove("kickweak");
+			}
+			
+		}
+	}
+
+	public int height() { if(_now == null) return 0; return _now.height();  }
 	
 	
 }	

@@ -22,6 +22,7 @@
 	<classpathentry kind="lib" path="vendor/slick/lib/slick-util.jar"/>
 	<classpathentry kind="lib" path="vendor/slick/lib/slick.jar"/>
 	<classpathentry kind="lib" path="vendor/slick/lib/tinylinepp.jar"/>
+	<classpathentry kind="lib" path="vendor/phys2d/phys2d-060408.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/slick"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -139,14 +139,60 @@ public class Main extends BasicGame {
 		loadAll();
 		_stage 		= getStage("outside");
 		if(_stage  != null) {
-			_fighter1 = getFighter("stick");
-			_fighter2 = getFighter("mandy");			
+			//XXX: due to the current data structures i't not possible for a fighter to face 
+			// itself since they are identically the same object.			
+			_fighter1 = getFighter("mandy");
+			_fighter2 = getFighter("stick");			
 			_stage.enter(_fighter1, _fighter2);
 		}
 		_lastupdate	= container.getTime();
 	} 
+	
+	public void handleInput(Input input) {
+		char command = Command.IDLE;
+		if(input.isControllerLeft(0) || input.isKeyDown(Input.KEY_J)) {
+			command = (char) (command | Command.LEFT); 
+			// These annoying casts are needed because Java in upcasts an | of 
+			// 2 chars to an int. :p  
+		} else if (input.isControllerRight(0) || input.isKeyDown(Input.KEY_L)) {
+			command = (char) (command | Command.RIGHT);
+		}
+		if(input.isControllerDown(0) || input.isKeyDown(Input.KEY_K)) {
+			command = (char) (command | Command.DOWN);
+		} else if (input.isControllerUp(0) || input.isKeyDown(Input.KEY_I)) {
+			command = (char) (command | Command.UP);
+		} 
+		if(input.isButtonPressed(0, 0) || input.isKeyDown(Input.KEY_Y)) {
+			command = (char) (command | Command.HIGHWEAK);
+		} 
+		if(input.isButtonPressed(0, 1) || input.isKeyDown(Input.KEY_T)) {
+			command = (char) (command | Command.HIGHMEDIUM);
+		} 
+		if(input.isButtonPressed(0, 2) || input.isKeyDown(Input.KEY_H)) {
+			command = (char) (command | Command.LOWWEAK);
+		}
+		if(input.isButtonPressed(0, 3) || input.isKeyDown(Input.KEY_G)) {
+			command = (char) (command | Command.LOWMEDIUM);
+		}		
+		if(input.isButtonPressed(0, 4) || input.isKeyDown(Input.KEY_R)) {
+			command = (char) (command | Command.HIGHSTRONG);
+		}
+		if(input.isButtonPressed(0, 5) || input.isKeyDown(Input.KEY_E)) {
+			command = (char) (command | Command.HIGHBLOCK);
+		} 
+		if(input.isButtonPressed(0, 6) || input.isKeyDown(Input.KEY_F)) {
+			command = (char) (command | Command.LOWSTRONG);
+		} 
+		if(input.isButtonPressed(0, 7) || input.isKeyDown(Input.KEY_D)) {
+			command = (char) (command | Command.LOWBLOCK);
+		} 		
+		_fighter1.command(command);
+	}
+	
 	@Override public void update(GameContainer container, int delta) 
     throws SlickException {
+		// handle input directly rather than trhough callbacks for now.
+		handleInput(container.getInput());
 		long time_now   = container.getTime();
 		long time_delta = time_now - _lastupdate;
 		time_delta 		= Tool.clamp(time_delta, 0 , 1000);
@@ -159,28 +205,8 @@ public class Main extends BasicGame {
     throws SlickException  {
 		_stage.draw();
 		g.drawString("Hello, Slick!", 0, 100);		
-    } 
-	
-	@Override public void keyPressed(int key, char c) {
-		printf("Key pressed! %d %c\n", key, c);
-		switch(key) { 
-			case Input.KEY_UP:
-				_fighter1.move(0, -10);
-			break;	
-			case Input.KEY_DOWN:
-				_fighter1.move(0, 10);
-			break;	
-			case Input.KEY_LEFT:
-				_fighter1.move(-10, 0);
-			break;	
-			case Input.KEY_RIGHT:
-				_fighter1.move(10, 0);
-			break;
-			default:
-			break;
-		}
-	}  
-	
+    }	
+
 	public static void main(String[] args) { 
 		try { 
 			Main game = new Main(); 

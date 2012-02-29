@@ -51,10 +51,12 @@ public class Animation {
 			 _phase 	 = 0;
 			 _active 	+= 1;
 			 // active is reset to  0 if it's more than the last frame
-			 _active     = Tool.wraplimit(_active, _frames.size());
+			 _active     = Tool.wraplimit(_active, _frames.size() - 1);
 			 _now		 = _frames.get(_active); 
 		 }
-	 } 
+	 }
+
+	public int height() { if(_now == null) return 0; return _now.height(); } 
 	 
 
 }

@@ -48,8 +48,8 @@ public class Move extends Named {
 		java.util.Arrays.sort(framefiles);
 		for(int index = 0; index < framefiles.length; index++) {
 			File file 	= framefiles[index];
-			Frame frame = null;
-			Main.printf("Loading frame %s:\n", file.getPath());
+			Frame frame = null;			
+			// Main.printf("Loading frame %s:\n", file.getPath());
 			try {
 				frame = new Frame(file);
 				_animation.add(frame);
@@ -64,6 +64,14 @@ public class Move extends Named {
 	void draw(int x, int y) {
 		_animation.draw(x, y, false);
 	}
+
+
+	public void update(long ms) {
+		_animation.update(ms);
+	}
+
+
+	public int height() { return _animation.height();	}
 	
 	
 
