@@ -11,7 +11,7 @@ public class Animation {
 	 Vector<Frame> _frames;
 	 Frame _now;
 	 int   _active;
-	 int   _phase;	 
+	 long  _phase;	 
 	 
 	 Animation() {
 		 _frames = new Vector<Frame>();
@@ -35,14 +35,15 @@ public class Animation {
 		 return frame;
 	 }
 	 
-	 void draw(int x, int y) {
+	 /** draws this animation, flipped or not so. */
+	 void draw(int x, int y, boolean flip) {
 		 if(_now == null) return;
-		 _now.draw(x, y);
+		 _now.draw(x, y, flip);
 	 }
 	 
 	 // Updates the animation. pass in how much time has passed since the last 
 	 // call update in milliseconds.
-	 void update(int ms) {
+	 void update(long ms) {
 		 if(_now == null) return;
 		 _phase += ms;
 		 // if the phase is bigger than the delay, the frame is over 

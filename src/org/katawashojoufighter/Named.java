@@ -6,6 +6,10 @@ package org.katawashojoufighter;
 public class Named {
 	String _name;
 	
+	Named () {
+		this("###unknown###");
+	}
+	
 	Named(String name) {
 		_name = name;
 	}

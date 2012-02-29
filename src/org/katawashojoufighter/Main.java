@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics; 
 import org.newdawn.slick.SlickException; 
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.Input;
 
 /** Main has the main function and assorted data. */
 public class Main extends BasicGame {
@@ -19,12 +20,20 @@ public class Main extends BasicGame {
 	static HashVector<String, Fighter> 	   _fighters;
 	// All projectiles
 	static HashVector<String, Projectile>  _projectiles;
-	// This is so we can keep track of all known 
+	// This is so we can keep track of all known
 	
-	public void printf(String format, Object ... args) {
-		System.out.format(format, args);
+	// Active fighters, if any. 
+	Fighter _fighter1, _fighter2;
+	
+	/** Print formatted messages to stdout. */
+	public static void printf(String format, Object ... args) {
+		System.out.format(format, args);		
 	}
 	
+	/** Print formatted error messages to stderr. */
+	public static void perrorf(String format, Object ... args) {
+		System.err.format(format, args);		
+	}
 	
 	public Stage getStage(String id) {
 		return _stages.get(id);
@@ -50,7 +59,7 @@ public class Main extends BasicGame {
 		_projectiles.put(projectile.name(), projectile);
 	}
 	
-	// loads all data 
+	// Loads all data 
 	void loadAll() throws SlickException {
 		loadStages();
 		loadFighters();
@@ -129,6 +138,11 @@ public class Main extends BasicGame {
 	throws SlickException {
 		loadAll();
 		_stage 		= getStage("outside");
+		if(_stage  != null) {
+			_fighter1 = getFighter("hanako");
+			_fighter2 = getFighter("mandy");			
+			_stage.enter(_fighter1, _fighter2);
+		}
 		_lastupdate	= container.getTime();
 	} 
 	@Override public void update(GameContainer container, int delta) 
@@ -146,13 +160,33 @@ public class Main extends BasicGame {
 		_stage.draw();
 		g.drawString("Hello, Slick!", 0, 100);		
     } 
+	
+	@Override public void keyPressed(int key, char c) {
+		printf("Key pressed! %d %c\n", key, c);
+		switch(key) { 
+			case Input.KEY_UP:
+				_fighter1.move(0, -10);
+			break;	
+			case Input.KEY_DOWN:
+				_fighter1.move(0, 10);
+			break;	
+			case Input.KEY_LEFT:
+				_fighter1.move(-10, 0);
+			break;	
+			case Input.KEY_RIGHT:
+				_fighter1.move(10, 0);
+			break;
+			default:
+			break;
+		}
+	}  
+	
 	public static void main(String[] args) { 
 		try { 
 			Main game = new Main(); 
 			AppGameContainer app = new AppGameContainer(game);
 			app.setDisplayMode(800, 600, false);
-			app.start();
-			
+			app.start();			
 		} catch (SlickException e) { 
 			e.printStackTrace(); 
 		} 

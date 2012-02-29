@@ -40,6 +40,12 @@ public class Whereis {
 		return fightersub;
 	}
 	
+	static File movedir(String fightername, String movename) { 
+		File dir  = new File(fighter(fightername),  movename);
+		return dir;
+	}
+	
+	
 	static File movepng(String fightername, String movename) { 
 		File movepng    = new File(fighter(fightername),  fightername + "_" + movename + ".png");
 		return movepng;
@@ -59,6 +65,18 @@ public class Whereis {
 	static public class IsFile implements FileFilter {
 		@Override
 		public boolean accept(File file) { return file.isFile(); }		
+	}
+	
+	static public class IsImage implements FileFilter {
+		@Override
+		public boolean accept(File file) { 
+			if(!file.isFile()) return false;
+			String ext = Whereis.extensionof(file);
+			if(ext.equals("png")) return true;
+			if(ext.equals("gif")) return true;
+			if(ext.equals("jpg")) return true;
+			return false;
+		}		
 	}
 	
 	/** Returns name of background file for the named stage or null if not found. */
@@ -89,10 +107,19 @@ public class Whereis {
 		return fighter(fightername).listFiles(new IsDir());
 	}
 	
+	/** Returns a list of the different image files that make up a move for a fighter. */
+	static File[] movefiles(String fightername, String movename) { 
+		return movedir(fightername, movename).listFiles(new IsImage());
+	}
 	
 	public static String nameof(File file) {
 		String aid = file.getName();
 		return aid.split("\\.")[0];
+	}
+	
+	public static String extensionof(File file) {
+		String aid = file.getName();
+		return aid.split("\\.")[1];
 	}
 
 }
