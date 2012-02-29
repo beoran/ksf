@@ -139,7 +139,7 @@ public class Main extends BasicGame {
 		loadAll();
 		_stage 		= getStage("outside");
 		if(_stage  != null) {
-			_fighter1 = getFighter("hanako");
+			_fighter1 = getFighter("stick");
 			_fighter2 = getFighter("mandy");			
 			_stage.enter(_fighter1, _fighter2);
 		}

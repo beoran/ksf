@@ -1,3 +1,6 @@
+package org.katawashojoufighter;
+
+
 /** Helper class that reads XML files and helps to find data in them. */
 import java.io.File;
 import org.w3c.dom.*;
