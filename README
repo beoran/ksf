@@ -1,0 +1,50 @@
+
+
+
+
+Making new fighters:
+
+This program uses the "convention over configuration idea".
+The idea is that it's possible to make new fighters or stages, by just adding 
+images of the frames, in the right folders. The fighters, stages, etc can then 
+be further customized by creating editing an xml file in the corresponding 
+folder. But the xml file is optional and if missing, the engine will simply 
+fill in everything with default values based on the sizes of the images, etc.
+
+Every fighter goes in the data/fighter folder, and every move goes in a folder
+named after the move under that. Every frame of the move consists of a single
+file, of which the name  begins with the name of the character, and underscore, 
+the name of the move, and then either numbers or an underscore and numbers. 
+All file names are in lower case. 
+
+For example for a fighter names "Moe", with moves idle, walk and kick you'll 
+need the following data folder layout and files:
+
+data/fighter/moe/idle/moe_idle1.png 
+data/fighter/moe/idle/moe_idle2.png
+data/fighter/moe/idle/moe_idle3.png
+data/fighter/moe/idle/moe_idle4.png ...
+data/fighter/moe/walk/moe_walk1.png 
+data/fighter/moe/walk/moe_walk2.png
+data/fighter/moe/walk/moe_walk3.png
+data/fighter/moe/walk/moe_walk4.png ...
+data/fighter/moe/walk/moe_kick1.png 
+data/fighter/moe/walk/moe_kick2.png
+data/fighter/moe/walk/moe_kick3.png
+data/fighter/moe/walk/moe_kick4.png ...
+
+The xml, if any file goes here: 
+data/fighter/moe.xml
+
+For a stage name "outside" you'll only need: 
+data/stage/outside/outside.png OR data/stage/outside/outside.jpg
+The optional xml file goes here: 
+data/stage/outside/outside.xml
+
+
+
+
+   
+  
+
+

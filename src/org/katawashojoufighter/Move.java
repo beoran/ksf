@@ -6,18 +6,15 @@ import org.newdawn.slick.SlickException;
 import java.io.File;
 
 /**
- * A move is any action, motion or position a Fighet can unertake, even lying down, etc.
+ * A move is any action, motion or position a Fighter can undertake, 
+ * even lying down, etc.
  * */
 public class Move {
 	// The fighter this move belongs to. 
-	Fighter _fighter;
-	String 	_name;	
-	Image  	_image;
-	// Width of frames
-	int    	_framewidth;
-	// x positions of frames
-    int    	_frames[];
-	int    	_damage;
+	Fighter   _fighter;
+	String 	  _name;	
+	// Animation with the frames of this move.
+	Animation _animation;
 	
 	/** Loads an image for a move. Returns nil if could not load. */
 	Image load_image(String fightername, String movename) {		
@@ -38,8 +35,7 @@ public class Move {
 	
 	Move(Fighter fighter, String name) {
 		_fighter 	= fighter;
-		_name 		= name;
-		_image 		= load_image(_fighter._name, _name);
+		_name 		= name;		
 	}	
 	
 

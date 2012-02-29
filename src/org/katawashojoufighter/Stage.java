@@ -1,27 +1,45 @@
 package org.katawashojoufighter;
 
+
+import java.util.Vector;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
  * A Stage is one of the "level" of the game where the fight takes place.  
  */
-public class Stage {
-	Image 	background_;
-	int  	width_;
-	int 	height_;
-	Camera  camera_;
+public class Stage extends Named {
+	String			_id;
+	Image 		    _background;
+	int  			_width;
+	int 		    _height;
+	Camera  		_camera;
+	Vector<Thing>	_things; 	
 	
-	Stage(int width, int height, String backname) throws SlickException {
-		width_ 		= width;
-		height_ 	= height;
-		background_ = new Image("data/image/background_test.png");
-		camera_  	= new Camera(-background_.getWidth() / 4,  -background_.getHeight() / 2);
+	/* Creates a new Stage by loading all it's resources from the data 
+	 * directory. 
+	 **/
+	Stage(String name) throws SlickException {
+		super(name);
+		_width 		= 800;
+		_height 	= 600;
+		_background = new Image(Whereis.background(name).getPath());
+		_camera 	= new Camera(-_background.getWidth() / 4,  -_background.getHeight() / 2);
+		_things		= new Vector<Thing>();
 	} 
 	
 	void draw() {
-		background_.draw(camera_.x(), camera_.y());
+		_background.draw(_camera.x(), _camera.y());
 	}
+
+	public void update(long time_delta) {
+		for(int index = 0; index < _things.size(); index++) {
+			Thing thing = _things.get(index);
+			thing.update(time_delta);
+		}
+	}
+	
+	
 	
 
 }

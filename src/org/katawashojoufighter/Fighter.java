@@ -4,7 +4,13 @@ package org.katawashojoufighter;
  * A Fighter is any of the characters that can be played or can be fought against. 
  * A Fighter has different "moves" and different parameters such as maximum health, etc.    
  * */
-public class Fighter {
+public class Fighter extends Thing {
+	final static int DEFAULT_HEALTH 	= 10000;
+	final static int DEFAULT_RAGE   	= 10000;
+	final static int DEFAULT_STRENGTH   = 10;
+	final static int DEFAULT_TOUGHNESS  = 10;
+	final static int DEFAULT_AGILITY   	= 10;
+	
 	String _name;
 	
 	int _health;
@@ -22,11 +28,21 @@ public class Fighter {
 	
 	java.util.Hashtable<String, Move> _moves;
 	
-	Fighter(String name, int health_max, int rage_max) {
-		_name		= name;
-		_health 	= _health_max = health_max;
-		_rage_max 	= rage_max;
-		_rage   	= 0; 		
+	/* Creates a new Fighter by loading all it's resources from the data 
+	 * directory. 
+	 * */	
+	Fighter(String name) {
+		super(name);
+		_health 	= _health_max = DEFAULT_HEALTH;
+		_rage_max 	= DEFAULT_RAGE;
+		_strength   = DEFAULT_STRENGTH;
+		_toughness  = DEFAULT_TOUGNESS;
+		_agility    = DEFAULT_AGILITY;
+		
+	}
+	
+	void loadMoves() {
+		
 	}
 	
 	Move getMove(String name) {
@@ -52,11 +68,5 @@ public class Fighter {
 	
 	
 }	
-	
-	
-	
-	
-	
-	
 
-}
+

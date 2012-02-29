@@ -1,0 +1,34 @@
+<fighter 
+	id			=	"mandy" 
+	longname	=	"Mandy"
+	health		=	"9000"
+	strength	=	"8"
+	toughness	=	"8"
+	jump_speed	=   "6.1"
+	shadow		=   "3"	
+>
+<sounds>
+	<sound id="sound_die" src="eek.wav">
+	<sound id="sound_hit" src="beat1.wav">
+</sounds>	  
+<moves>
+	<move id="idle" delay="10" offset="0 0">
+		<frames/>
+	</move>	  
+ 	<move id="walk" delay="7" offset="0 0">
+ 	 	<frames/>
+ 	</move> 	
+  	<move id="get" keys="attack1" delay="5" offset="2 2">
+   		<frames>
+   			<frame id="get4" delay="30">  
+   		</frames>
+  	</move> 	
+  	<move id="punchweak" keys="attack1" range="59" delay="4" 
+        box="13 2 31 98" offset="12 1" type="attack" damage="300" force="0">
+    	<frames>
+    		<frame id="punchweak4" box="50 15 85 30">
+    		<frame id="punchweak3" delay="2">
+    	</frames>
+  	</move>
+ </moves>
+ </fighter> 	 

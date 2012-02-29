@@ -1,1 +1,0 @@
-java  -Djava.library.path=vendor/slick/lib/ -cp bin:vendor/slick/lib/slick.jar:bin:vendor/slick/lib/lwjgl.jar:vendor/slick/lib/  org.katawashojoufighter.Main

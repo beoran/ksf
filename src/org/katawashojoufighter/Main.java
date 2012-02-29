@@ -1,27 +1,150 @@
 package org.katawashojoufighter;
 
+import java.io.File;
+
 import org.newdawn.slick.BasicGame; 
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics; 
 import org.newdawn.slick.SlickException; 
 import org.newdawn.slick.AppGameContainer;
 
+/** Main has the main function and assorted data. */
 public class Main extends BasicGame {
-	Stage stage_;
+	Stage _stage; // current stage, if any.
+	long _lastupdate;
+	// Time of last update
+	// All stages
+	static HashVector<String, Stage> 	   _stages;
+	// All fighters 
+	static HashVector<String, Fighter> 	   _fighters;
+	// All projectiles
+	static HashVector<String, Projectile>  _projectiles;
+	// This is so we can keep track of all known 
+	
+	public void printf(String format, Object ... args) {
+		System.out.format(format, args);
+	}
+	
+	
+	public Stage getStage(String id) {
+		return _stages.get(id);
+	}
+	
+	public Fighter getFighter(String id) {
+		return _fighters.get(id);
+	}
+	
+	public Projectile getProjectile(String id) {
+		return _projectiles.get(id);
+	}
+	
+	public void putStage(Stage stage) {
+		_stages.put(stage.name(), stage);
+	}
+	
+	public void putFighter(Fighter fighter) {
+		_fighters.put(fighter.name(), fighter);
+	}
+	
+	public void  putProjectile(Projectile projectile) {
+		_projectiles.put(projectile.name(), projectile);
+	}
+	
+	// loads all data 
+	void loadAll() throws SlickException {
+		loadStages();
+		loadFighters();
+		loadProjectiles();
+	}
+	
+	/** Load a single stage, return null if it failed.
+	 *  Also stores the stage if successful in _stages
+	 **/
+	Stage loadStage(String name) {
+		try {
+			System.out.format("Loading stage %s: ", name);
+			Stage stage = new Stage(name);
+			putStage(stage);
+			System.out.format(" OK!\n", name);
+			return stage;
+		} catch(Exception ex) {					
+			System.out.format(" Error!\n", name);
+			ex.printStackTrace();
+			return null;
+		}
+	} 
+	
+	/** Load a single fighter, return null if it failed.
+	 *  Also stores the stage if successul in _stages
+	 **/
+	Fighter loadFighter(String name) {
+		try {
+			System.out.format("Loading fighter %s: ", name);
+			Fighter fighter = new Fighter(name);
+			putFighter(fighter);
+			System.out.format(" OK!\n", name);
+			return fighter;
+		} catch(Exception ex) {					
+			System.out.format(" Error!\n", name);
+			ex.printStackTrace();
+			return null;
+		}
+	} 
+
+	
+	/** Loads all stages */
+	void loadStages() {
+		File [] dirs = Whereis.allstagedirs(); 
+		for(int index = 0; index < dirs.length; index ++) {
+			File   file = dirs[index];
+			String name = Whereis.nameof(file);
+			loadStage(name);
+		}
+	}
+
+	/** Loads all fighters */
+	void loadFighters() {
+		File [] dirs = Whereis.allfighterdirs(); 
+		for(int index = 0; index < dirs.length; index ++) {
+			File   file = dirs[index];
+			String name = Whereis.nameof(file);
+			loadFighter(name);
+		}
+	}
+	
+	/** Loads all projectiles. */
+	void loadProjectiles() throws SlickException  {
+		// TODO: implement projectiles.
+	}
+	
 	
 	public Main() throws SlickException { 
 		super("Katawa Shoujo Fighter"); 
+		_stages 	= new HashVector<String, Stage>();
+		_fighters 	= new HashVector<String, Fighter>();
+		_projectiles= new HashVector<String, Projectile>();
 	} 
+	
 	@Override public void init(GameContainer container) 
 	throws SlickException {
-		stage_ = new Stage(800, 600, "test");
+		loadAll();
+		_stage 		= getStage("outside");
+		_lastupdate	= container.getTime();
 	} 
 	@Override public void update(GameContainer container, int delta) 
-    throws SlickException {} 
+    throws SlickException {
+		long time_now   = container.getTime();
+		long time_delta = time_now - _lastupdate;
+		time_delta 		= Tool.clamp(time_delta, 0 , 1000);
+		if(_stage != null) {
+			_stage.update(time_delta);
+		}				
+		_lastupdate		= time_now;  
+	} 
 	@Override public void render(GameContainer container, Graphics g) 
     throws SlickException  {
-		stage_.draw();
-		g.drawString("Hello, Slick world!", 0, 100);		
+		_stage.draw();
+		g.drawString("Hello, Slick!", 0, 100);		
     } 
 	public static void main(String[] args) { 
 		try { 
