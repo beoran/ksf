@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 /** A simple superclass for every object that has a name. 
  * Which is mostly anything. 

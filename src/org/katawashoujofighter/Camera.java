@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 /**
  * Camera specifies a view on the current stage. 

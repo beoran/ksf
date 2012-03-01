@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 /** Class with static tools such as limit, etc */
 public class Tool {

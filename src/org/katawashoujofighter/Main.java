@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 import java.io.File;
 
@@ -152,7 +152,7 @@ public class Main extends BasicGame {
 		char command = Command.IDLE;
 		if(input.isControllerLeft(0) || input.isKeyDown(Input.KEY_J)) {
 			command = (char) (command | Command.LEFT); 
-			// These annoying casts are needed because Java in upcasts an | of 
+			// These annoying casts are needed because Java upcasts an | of 
 			// 2 chars to an int. :p  
 		} else if (input.isControllerRight(0) || input.isKeyDown(Input.KEY_L)) {
 			command = (char) (command | Command.RIGHT);
@@ -191,7 +191,7 @@ public class Main extends BasicGame {
 	
 	@Override public void update(GameContainer container, int delta) 
     throws SlickException {
-		// handle input directly rather than trhough callbacks for now.
+		// handle input directly rather than through callbacks for now.
 		handleInput(container.getInput());
 		long time_now   = container.getTime();
 		long time_delta = time_now - _lastupdate;
@@ -204,7 +204,7 @@ public class Main extends BasicGame {
 	@Override public void render(GameContainer container, Graphics g) 
     throws SlickException  {
 		_stage.draw();
-		g.drawString("Hello, Slick!", 0, 100);		
+		// g.drawString("Hello, Slick!", 0, 100);		
     }	
 
 	public static void main(String[] args) { 

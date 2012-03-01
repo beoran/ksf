@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 import java.io.Serializable;
 import org.newdawn.slick.Image;

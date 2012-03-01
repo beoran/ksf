@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 import java.io.File;
 import java.io.FileFilter;
 

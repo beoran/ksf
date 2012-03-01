@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 /** A Projectile is a (harmful?) object  that is launched by one of the 
  * Fighters. 

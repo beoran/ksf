@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 import java.io.File;
 import java.util.HashMap;
@@ -128,7 +128,7 @@ public class Fighter extends Thing {
 			} else if (_command == Command.UP)  {
 				trymove("jump");
 				// ensure the feet go off the floor.
-				y(y() - 50);  air(true); setaccel(10, -10000);
+				set(x(), y() - 50);  air(true); setaccel(10, -10000);
 			}
 		} else { // action command
 			if (Command.is(_command, Command.HIGHWEAK)) {

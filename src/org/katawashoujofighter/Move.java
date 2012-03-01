@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

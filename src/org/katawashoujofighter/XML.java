@@ -1,4 +1,4 @@
-package org.katawashojoufighter;
+package org.katawashoujofighter;
 
 
 /** Helper class that reads XML files and helps to find data in them. */
