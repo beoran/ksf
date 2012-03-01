@@ -4,8 +4,9 @@ package org.katawashoujofighter;
 import java.util.Vector;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import net.phys2d.raw.World;
-import net.phys2d.math.Vector2f;
+import org.jbox2d.dynamics.World;
+import org.jbox2d.common.Vec2;
+
 
 /**
  * A Stage is one of the "level" of the game where the fight takes place.  
@@ -18,8 +19,8 @@ public class Stage extends Named {
 	Camera  		_camera;
 	Vector<Thing>	_things; 	
 	int 			_ground; // y coordinate of the ground.
-	World			_world; // phys2d simulation world.
-	static Vector2f _gravity = new Vector2f(0.0f, 10.0f);
+	World			_world;  // phys2d simulation world.
+	static Vec2     _gravity   = new Vec2(0.0f, 10.0f);
 	static int	 	iterations = 1000;
 	
 	/* Creates a new Stage by loading all it's resources from the data 
@@ -27,7 +28,7 @@ public class Stage extends Named {
 	 **/
 	Stage(String name) throws SlickException {
 		super(name);
-		_world		= new World(_gravity, iterations);
+		_world		= new World(_gravity, false);
 		_background = new Image(Whereis.background(name).getPath());
 		_width 		= _background.getWidth();		
 		_height 	= _background.getHeight();		
